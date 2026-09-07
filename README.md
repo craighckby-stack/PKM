@@ -1,4 +1,3 @@
-````markdown
 # 🧟 PKM — Panic Key Mechanism
 
 **Duress Self-Destruct Protocol — Flash-Layer Implementation**
@@ -195,4 +194,3 @@ Code and specification: **Apache-2.0**. Read the **[full disclaimer](DISCLAIMER.
 ---
 
 ### 🧟 *Dies on purpose. Stays dead.*
-````
