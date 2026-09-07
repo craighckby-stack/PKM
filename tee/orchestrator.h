@@ -12,15 +12,15 @@ extern "C" {
 #endif
 
 /**
- * @brief Execution states for the duress self-destruct lifecycle.
+ * @brief Execution states governing the duress self-destruct lifecycle.
  */
 typedef enum {
-    TEE_DESTRUCT_STATE_IDLE = 0,
-    TEE_DESTRUCT_STATE_TRIGGERED,
-    TEE_DESTRUCT_STATE_WIPING_KEYS,
-    TEE_DESTRUCT_STATE_WIPING_STORAGE,
-    TEE_DESTRUCT_STATE_COMPLETE,
-    TEE_DESTRUCT_STATE_FAILED
+    TEE_DESTRUCT_STATE_IDLE           = 0,
+    TEE_DESTRUCT_STATE_TRIGGERED      = 1,
+    TEE_DESTRUCT_STATE_WIPING_KEYS    = 2,
+    TEE_DESTRUCT_STATE_WIPING_STORAGE = 3,
+    TEE_DESTRUCT_STATE_COMPLETE       = 4,
+    TEE_DESTRUCT_STATE_FAILED         = 5
 } tee_destruct_state_t;
 
 /**
@@ -33,14 +33,14 @@ bool tee_orchestrator_init(void);
 /**
  * @brief Handle an incoming panic gesture or duress signal.
  * 
- * @return true if the self-destruct sequence was successfully initiated.
+ * @return true if the self-destruct sequence was successfully initiated, false otherwise.
  */
 bool tee_orchestrator_handle_panic_gesture(void);
 
 /**
- * @brief Query the current status of the self-destruct sequence.
+ * @brief Query the current execution status of the self-destruct sequence.
  * 
- * @return Current lifecycle state of type tee_destruct_state_t.
+ * @return The active lifecycle state represented as a tee_destruct_state_t.
  */
 tee_destruct_state_t tee_orchestrator_get_status(void);
 
