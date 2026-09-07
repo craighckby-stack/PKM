@@ -9,8 +9,8 @@
 #ifndef STORAGE_KEY_ZEROIZE_H
 #define STORAGE_KEY_ZEROIZE_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
