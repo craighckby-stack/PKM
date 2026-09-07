@@ -17,7 +17,7 @@
 
 **Three deliberate presses. The phone becomes permanently inert hardware containing unrecoverable ciphertext—before it is ever surrendered.**
 
-Not a wipe. Not a lock. **A structural death of the device itself**—achieved entirely at the flash-storage layer, with zero silicon modification.
+This is not a software wipe or a standard device lock. It is **a structural death of the device itself**—achieved entirely at the flash-storage layer without any silicon modification.
 
 ```
 Before panic:  Phone works normally. Files remain ordinary files.
@@ -50,9 +50,9 @@ Afterward:     Nothing boots. Nothing recovers. Nothing runs. Ever.
 
 ### Constraints
 
-- 🛡️ Gesture detected in **TrustZone** (secure world) — *below* the OS.
-- ⚡ Functions when Android is frozen, crashed, or maliciously replaced.
-- 🚫 Rhythmic hold-release pattern is unachievable via accidental pocket pressure.
+- 🛡️ Gesture detected in **TrustZone** (secure world) — operating *below* the OS.
+- ⚡ Functions even when Android is frozen, crashed, or maliciously replaced.
+- 🚫 The rhythmic hold-release pattern is unachievable via accidental pocket pressure.
 
 ---
 
@@ -101,9 +101,9 @@ Boot ROM (silicon) → reads bootloader from flash → GARBAGE
 | 🔧 **Rescue mode (EDL / Download Mode / DFU)** | Signed programmer accepted → reflash write **rejected by Permanent WP** → rescue fails permanently. |
 | 📱 **Storage chip → identical-model donor** | Donor's Boot ROM reads the corrupted chip → donor halts too *(see §5)*. |
 | 📱 **Storage chip → different model** | Host rejects foreign boot layouts/signatures regardless — independent of PKM. |
-| ♻️ **Reflash the transplanted chip** | Permanent WP travels **with the chip** — writes rejected on any host that mounts it. |
+| ♻️ **Reflash the transplanted chip** | Permanent WP travels **with the chip** — writes are rejected on any host that mounts it. |
 | 🔬 **Chip-off forensics (remove NAND, read raw)** | Purged media + zeroed keys = **noise, indistinguishable from random data**. |
-| 🧪 **Decap / die-level access** | Controller-level WP is fused state; key material is physically erased. |
+| 🧪 **Decap / die-level access** | Controller-level WP is a fused state; key material is physically erased. |
 | 💻 **Any code execution on the device** | **NONE.** Boot never completes → **zero attack surface**. |
 
 ---
@@ -112,7 +112,7 @@ Boot ROM (silicon) → reads bootloader from flash → GARBAGE
 
 > ***The zombie doesn't chase anyone — anyone who accepts it, walks into it.***
 
-The corrupted boot images and Permanent Write Protection are properties of the **storage medium** — they travel with the chip.
+The corrupted boot images and Permanent Write Protection are properties of the **storage medium** — they travel directly with the chip.
 
 ```
 Same-model donor + transplanted chip
