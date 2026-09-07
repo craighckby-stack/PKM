@@ -15,8 +15,8 @@ The primary objective of these tests is to ensure that data sanitization mechani
 
 ## Documentation Structure
 
-| Component        | Description                          | Target Metric              |
-| :--------------- | :----------------------------------- | :------------------------- |
-| **Test Suites**  | Automated verification scripts       | 100% unrecoverability      |
-| **Forensic Logs**| Output analysis from recovery tools  | Zero artifact recovery     |
-| **Verification** | Validation protocols for clean states| Deterministic confirmation |
+| Component         | Description                           | Target Metric              |
+| :---------------- | :------------------------------------ | :------------------------- |
+| **Test Suites**   | Automated verification scripts        | 100% unrecoverability      |
+| **Forensic Logs** | Output analysis from recovery tools   | Zero artifact recovery     |
+| **Verification**  | Validation protocols for clean states | Deterministic confirmation |
