@@ -12,12 +12,15 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/** @brief Return status codes for duress applet operations. */
+/** 
+ * @brief Return status codes for duress applet operations. 
+ */
 typedef enum {
     TEE_DURESS_STATUS_SUCCESS         = 0x00000000,
     TEE_DURESS_STATUS_INVALID_PARAM   = 0x80000001,
@@ -26,7 +29,9 @@ typedef enum {
     TEE_DURESS_STATUS_HW_FAILURE      = 0x80000004
 } tee_duress_status_t;
 
-/** @brief Configuration parameters for duress gesture detection. */
+/** 
+ * @brief Configuration parameters for duress gesture detection. 
+ */
 typedef struct {
     uint32_t sensitivity_threshold;
     uint32_t timeout_ms;
@@ -36,16 +41,16 @@ typedef struct {
 /**
  * @brief Initialize the duress applet secure-world handler.
  * 
- * @param config Pointer to applet configuration parameters.
- * @return tee_duress_status_t TEE_DURESS_STATUS_SUCCESS on success, or an error code.
+ * @param[in] config Pointer to applet configuration parameters.
+ * @return tee_duress_status_t TEE_DURESS_STATUS_SUCCESS on success, or an appropriate error code.
  */
 tee_duress_status_t tee_duress_init(const tee_duress_config_t *config);
 
 /**
  * @brief Process incoming sensor or hardware events to detect duress gestures.
  * 
- * @param event_data Pointer to raw event buffer from the untrusted world.
- * @param data_size Size of the event buffer in bytes.
+ * @param[in] event_data Pointer to raw event buffer from the untrusted world.
+ * @param[in] data_size  Size of the event buffer in bytes.
  * @return tee_duress_status_t TEE_DURESS_STATUS_TRIGGERED if a duress gesture is verified.
  */
 tee_duress_status_t tee_duress_evaluate_gesture(const void *event_data, size_t data_size);
