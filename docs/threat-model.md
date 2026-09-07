@@ -1,0 +1,1 @@
+<!-- Threat Model for PKM (Panic Key Mechanism): defines adversary profiles, attack vectors (device seizure, forensic extraction), and security assumptions for the duress self-destruct protocol. -->
