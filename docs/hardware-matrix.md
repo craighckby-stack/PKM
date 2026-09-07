@@ -1,0 +1,1 @@
+<!-- Hardware compatibility matrix documenting SoC, TrustZone, and UFS/eMMC storage controller support for the PKM-Soft duress protocol. -->
