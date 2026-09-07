@@ -1,0 +1,2 @@
+# PKM
+permanently kill phone 
