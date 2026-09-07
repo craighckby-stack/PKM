@@ -8,9 +8,9 @@
 /* 
  * Architectural Constants & Configuration 
  */
-#define DURESS_TRIGGER_MAX_ATTEMPTS  3u
-#define SECURE_WIPE_PATTERN_BYTE     0x5Au
-#define SECURE_WIPE_PASSES           3u
+#define DURESS_TRIGGER_MAX_ATTEMPTS  (3u)
+#define SECURE_WIPE_PATTERN_BYTE     (0x5Au)
+#define SECURE_WIPE_PASSES           (3u)
 
 /*
  * State Enumerations
@@ -49,13 +49,15 @@ static DuressAppContext_t g_duress_context = {
 /*
  * Internal Helper Declarations
  */
-static void secure_memory_overwrite(volatile uint8_t *destination, size_t length, uint8_t pattern) {
+static void secure_memory_overwrite(volatile uint8_t *const destination, const size_t length, const uint8_t pattern) {
     if (destination == NULL) {
         return;
     }
+    
     for (size_t pass = 0u; pass < SECURE_WIPE_PASSES; ++pass) {
+        const uint8_t obfuscated_pattern = pattern ^ (uint8_t)pass;
         for (size_t i = 0u; i < length; ++i) {
-            destination[i] = pattern ^ (uint8_t)pass;
+            destination[i] = obfuscated_pattern;
         }
     }
 }
@@ -81,9 +83,8 @@ DuressStatus_t duress_applet_init(void) {
  * @param[in] gesture_code Raw biometric or input gesture payload.
  * @return true if duress pattern matched, false otherwise.
  */
-bool duress_applet_evaluate_gesture(uint32_t gesture_code) {
-    // Example secure pattern evaluation constant
-    const uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
+bool duress_applet_evaluate_gesture(const uint32_t gesture_code) {
+    constexpr uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
 
     if (g_duress_context.current_state != DURESS_STATE_MONITORING) {
         return false;
@@ -107,8 +108,8 @@ bool duress_applet_evaluate_gesture(uint32_t gesture_code) {
  * @return DuressStatus_t Execution status code.
  */
 DuressStatus_t duress_applet_execute_self_destruct(void) {
-    if (g_duress_context.current_state == DURESS_STATE_WIPING ||
-        g_duress_context.current_state == DURESS_STATE_LOCKED) {
+    if ((g_duress_context.current_state == DURESS_STATE_WIPING) ||
+        (g_duress_context.current_state == DURESS_STATE_LOCKED)) {
         return DURESS_STATUS_ERROR_ALREADY_TRIGGERED;
     }
 
