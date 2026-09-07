@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __c5plusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
