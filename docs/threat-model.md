@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the threat model for the Panic Key Mechanism (PKM). It defines adversary profiles, potential attack vectors, and core security assumptions underlying the duress self-destruct protocol.
+This document outlines the threat model for the Panic Key Mechanism (PKM). It defines adversary profiles, potential attack vectors, and the core security assumptions that underpin the duress self-destruct protocol.
 
 ## Adversary Profiles
 
@@ -15,15 +15,15 @@ This document outlines the threat model for the Panic Key Mechanism (PKM). It de
 ## Attack Vectors
 
 ### Device Seizure
-* **Description:** An adversary physically acquires the active device while unlocked or in a suspended state.
-* **Mitigation:** Immediate execution of the PKM protocol triggers secure memory sanitization before deep forensic analysis can begin.
+* **Description:** An adversary physically acquires the active device while it is unlocked or in a suspended state.
+* **Mitigation:** Immediate execution of the PKM protocol triggers secure memory sanitization before deep forensic analysis can commence.
 
 ### Forensic Extraction
 * **Description:** Post-seizure analysis utilizing non-invasive or invasive hardware techniques to read flash memory directly.
-* **Mitigation:** Implementation of cryptographic erasure, overwriting critical master keys to render persistent data unrecoverable.
+* **Mitigation:** Implementation of cryptographic erasure, which overwrites critical master keys to render persistent data permanently unrecoverable.
 
 ## Security Assumptions
 
-1. **Hardware Integrity:** The underlying storage controller and secure enclave operate as intended and properly execute overwrite commands.
+1. **Hardware Integrity:** The underlying storage controller and secure enclave operate as intended and correctly execute overwrite commands.
 2. **Timing Window:** The user has sufficient time and safety to trigger the panic key sequence before physical incapacitation or device confiscation prevents action.
 3. **Entropy Quality:** Cryptographic keys are generated using a cryptographically secure pseudorandom number generator (CSPRNG), ensuring that key destruction permanently severs access to encrypted volumes.
