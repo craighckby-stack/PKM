@@ -71,3 +71,5 @@ bool storage_is_permanent_write_protected(
 
 #endif /* STORAGE_WRITE_PROTECT_H */
 @@@
+@@@SUMMARY
+Refined header code layout and documentation clarity for enhanced readability while strictly preserving all original API contracts and signatures.
