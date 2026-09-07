@@ -5,8 +5,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-/* 
- * Architectural Constants & Configuration 
+/*
+ * Architectural Constants & Configuration
  */
 #define DURESS_TRIGGER_MAX_ATTEMPTS  (3u)
 #define SECURE_WIPE_PATTERN_BYTE     (0x5Au)
@@ -84,7 +84,7 @@ DuressStatus_t duress_applet_init(void) {
  * @return true if duress pattern matched, false otherwise.
  */
 bool duress_applet_evaluate_gesture(const uint32_t gesture_code) {
-    constexpr uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
+    static const uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
 
     if (g_duress_context.current_state != DURESS_STATE_MONITORING) {
         return false;
