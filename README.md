@@ -127,3 +127,22 @@ Hostile chip installed in donor device
 | TrustZone access for raw storage writes from secure world | Requires custom ROM / signed TEE applet |
 
 **Failure of any single dependency degrades gracefully:** no WP → brick is reflashable (data still destroyed); no purge → chip-off still yields encrypted noise. Only key zeroization is mandatory — and it is always available.
+
+
+PKM/
+├── README.md                 ← the pitch: duress brick, not data wipe
+├── docs/
+│   ├── SPEC.md               ← the PKM-Soft process spec (§1–7 from before)
+│   ├── THREAT-MODEL.md       ← forced handover; pre-compromise out of scope
+│   └── HARDWARE.md           ← per-device: WP support? Secure Purge? TEE access?
+├── tee/
+│   └── duress-ta/            ← Trusted Applet: gesture detection, orchestrator
+├── android/
+│   └── ...                   ← userland shim (registering gesture, nothing more)
+├── storage/
+│   ├── wipe-keys/            ← keystore zeroization (portable — start here)
+│   ├── purge/                ← UFS Secure Purge / eMMC Sanitize trigger
+│   ├── corrupt-boot/         ← bootloader partition overwrite
+│   └── write-protect/        ← Permanent WP enable (chip-dependent)
+└── tests/
+    └── recovery-attempts/    ← documented attempts to resurrect post-trigger
