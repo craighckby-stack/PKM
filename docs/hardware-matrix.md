@@ -6,8 +6,8 @@ This document provides a comprehensive hardware compatibility matrix for the PKM
 
 ## Supported Architectures
 
-| SoC Family              | Architecture    | TrustZone Support                            | Storage Controller       | Status          |
-| :---------------------- | :-------------- | :------------------------------------------- | :----------------------- | :-------------- |
+| SoC Family              | Architecture      | TrustZone Support                            | Storage Controller       | Status          |
+| :---------------------- | :---------------- | :------------------------------------------- | :----------------------- | :-------------- |
 | **Qualcomm Snapdragon** | ARMv8-A / ARMv9-A | Qualcomm Secure Execution Environment (QSEE) | UFS 2.1 / 3.1 / 4.0      | Fully Supported |
 | **MediaTek Dimensity**  | ARMv8-A / ARMv9-A | MediaTek Trustonic Kinibi / Teev             | UFS 3.1 / 4.0, eMMC 5.1  | Fully Supported |
 | **Google Tensor**       | ARMv8-A / ARMv9-A | ARM TrustZone (Custom Hypervisor)            | UFS 3.1 / 4.0            | Fully Supported |
