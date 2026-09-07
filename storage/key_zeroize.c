@@ -42,7 +42,7 @@ static inline void secure_memset_volatile(volatile uint8_t *destination, size_t 
         *cursor++ = 0x00;
     }
     
-    // Ensure memory barrier/synchronization point if required by architecture
+    // Ensure memory barrier/synchronization point to prevent instruction reordering
     __asm__ volatile("" ::: "memory");
 }
 
@@ -66,7 +66,7 @@ EnclaveStatus_t enclave_purge_hardware_keys(uint8_t *key_buffer, size_t buffer_s
         return ENCLAVE_SUCCESS;
     }
 
-    // Perform the pristine, compiler-safe zeroization sequence
+    // Execute compiler-safe zeroization sequence via volatile memory operations
     secure_memset_volatile((volatile uint8_t *)key_buffer, buffer_size);
 
     return ENCLAVE_SUCCESS;
