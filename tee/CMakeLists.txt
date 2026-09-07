@@ -1,0 +1,1 @@
+# CMake build configuration for the PKM TrustZone (TEE) Duress Handler and secure world components.
