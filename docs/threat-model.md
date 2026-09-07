@@ -1,4 +1,4 @@
-# Threat Model: PKM (Panic Key Mechanism)
+# Threat Model: Panic Key Mechanism (PKM)
 
 ## Overview
 
