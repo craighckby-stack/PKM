@@ -1,3 +1,7 @@
+⚠️ Legal & Usage Disclaimer — defensive security project; user responsibility applies
+
+
+
 PKM-Soft is an L-pill for data: it protects what the data protects — sources, contacts, operations — not the person carrying it. That trade is as old as tradecraft itself
 
 # PKM-Soft — 
