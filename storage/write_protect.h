@@ -1,3 +1,4 @@
+@@@START
 /**
  * @file write_protect.h
  * @brief PKM Permanent Write Protection Interface
@@ -69,3 +70,4 @@ bool storage_is_permanent_write_protected(
 #endif
 
 #endif /* STORAGE_WRITE_PROTECT_H */
+@@@
