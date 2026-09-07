@@ -8,7 +8,7 @@
  */
 
 #ifndef PKM_SOFT_BOOT_CORRUPT_H
-#define PKM_SOFT_CORRUPT_H
+#define PKM_SOFT_BOOT_CORRUPT_H
 
 #include <stdint.h>
 #include <stdbool.h>
