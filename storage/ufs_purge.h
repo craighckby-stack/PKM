@@ -9,13 +9,13 @@
 #ifndef PKM_STORAGE_UFS_PURGE_H
 #define PKM_STORAGE_UFS_PURGE_H
 
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
 
 /**
  * @brief UFS Sanitize Operation Status Codes
@@ -31,8 +31,8 @@ typedef enum {
  * @brief UFS Purge Method Types
  */
 typedef enum {
-    UFS_PURGE_METHOD_FLUSH_CACHE = 0,
-    UFS_PURGE_METHOD_BLOCK_ERASE = 1,
+    UFS_PURGE_METHOD_FLUSH_CACHE  = 0,
+    UFS_PURGE_METHOD_BLOCK_ERASE  = 1,
     UFS_PURGE_METHOD_CRYPTO_SCRUB = 2
 } ufs_purge_method_t;
 
@@ -48,14 +48,15 @@ typedef struct {
 /**
  * @brief Initializes the UFS secure purge subsystem.
  * 
- * @return true if initialization succeeded, false otherwise.
+ * @retval true  Initialization succeeded.
+ * @retval false Initialization failed.
  */
 bool ufs_purge_init(void);
 
 /**
  * @brief Executes a low-level storage controller media-erase and secure purge.
  * 
- * @param config Pointer to the purge configuration structure.
+ * @param[in] config Pointer to the immutable purge configuration structure.
  * @return ufs_sanitize_status_t Result status of the sanitize operation.
  */
 ufs_sanitize_status_t ufs_execute_secure_purge(const ufs_purge_config_t *config);
