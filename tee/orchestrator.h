@@ -4,8 +4,8 @@
 #ifndef TEE_ORCHESTRATOR_H
 #define TEE_ORCHESTRATOR_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
