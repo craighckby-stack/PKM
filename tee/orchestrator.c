@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-/* Constants and Configuration */
+/* Result and Error Codes */
 #define PKM_SUCCESS                 (0)
 #define PKM_ERR_INVALID_STATE       (-1)
 #define PKM_ERR_CRYPTO_FAILURE      (-2)
@@ -90,7 +90,7 @@ int32_t pkm_orchestrator_init(void)
 /**
  * @brief Main entry point for processing duress events from the secure monitor.
  * 
- * @[in] context Pointer to the captured gesture context.
+ * @param[in] context Pointer to the captured gesture context.
  * @return int32_t PKM_SUCCESS or corresponding error code.
  */
 int32_t pkm_orchestrator_handle_event(const pkm_gesture_context_t *const context)
