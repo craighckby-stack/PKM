@@ -82,8 +82,8 @@ DuressStatus_t duress_applet_init(void) {
  * @return true if duress pattern matched, false otherwise.
  */
 bool duress_applet_evaluate_gesture(uint32_t gesture_code) {
-    // Example secure pattern evaluation stub
-    constexpr uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
+    // Example secure pattern evaluation constant
+    const uint32_t kKnownDuressPatternMask = 0xDEADBEEFU;
 
     if (g_duress_context.current_state != DURESS_STATE_MONITORING) {
         return false;
