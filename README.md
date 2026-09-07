@@ -2,7 +2,10 @@
 
 **Duress Self-Destruct Protocol — Flash-Layer Implementation**
 
-![Status](https://img.shields.io/badge/status-specification-orange) ![Type](https://img.shields.io/badge/type-defensive%20security-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green) ![Disclaimer](https://img.shields.io/badge/%E2%9A%A0%EF%B8%8F-legal%20disclaimer-red)
+[![Status](https://img.shields.io/badge/status-specification-orange)](https://github.com)
+[![Type](https://img.shields.io/badge/type-defensive%20security-blue)](https://github.com)
+[![License](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
+[![Disclaimer](https://img.shields.io/badge/%E2%9A%A0%EF%B8%8F-legal%20disclaimer-red)](DISCLAIMER.md)
 
 > ⚠️ **[Legal & Usage Disclaimer](DISCLAIMER.md)** — Defensive security project; user responsibility applies.
 
