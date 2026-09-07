@@ -10,14 +10,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-/* Configuration Constants */
-#define STORAGE_WP_SUCCESS          (0)
-#define STORAGE_WP_ERR_INVALID_STATE (-1)
-#define STORAGE_WP_ERR_HARDWARE     (-2)
+/** Status and error codes for storage write protection operations. */
+typedef enum {
+    STORAGE_WP_SUCCESS           =  0,
+    STORAGE_WP_ERR_INVALID_STATE = -1,
+    STORAGE_WP_ERR_HARDWARE      = -2
+} storage_wp_status_t;
 
-/**
- * @brief Opaque forward declaration for storage controller context.
- */
+/** Opaque forward declaration for storage controller context. */
 typedef struct storage_context storage_context_t;
 
 /**
@@ -26,10 +26,10 @@ typedef struct storage_context storage_context_t;
  * @param[in] ctx Pointer to the active storage controller context.
  * @return true if conditions satisfy secure PKM trigger requirements, false otherwise.
  */
-static bool storage_is_pkm_trigger_active(const storage_context_t *const ctx)
+static inline bool storage_is_pkm_trigger_active(const storage_context_t *const ctx)
 {
-    /* Business logic boundary stub preserved for API contract continuity */
-    return (ctx != NULL);
+    // Business logic boundary stub preserved for API contract continuity
+    return (ctx != nullptr);
 }
 
 /**
