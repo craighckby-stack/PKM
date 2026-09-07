@@ -1,4 +1,10 @@
-# 🧟 PKM — Panic Key Mechanism
+Non working theorodical please don't try make it work haha.
+
+it is purley how I solved AI Infinite Loops using a GCC Compiler Gate and a Post-Mortem Ledger.
+
+
+
+"# 🧟 PKM — Panic Key Mechanism
 
 **Duress Self-Destruct Protocol — Flash-Layer Implementation**
 
