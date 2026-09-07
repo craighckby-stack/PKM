@@ -1,0 +1,1 @@
+<!-- Apache-2.0 License terms and conditions for the Panic Key Mechanism (PKM) project. -->
