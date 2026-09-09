@@ -32,18 +32,40 @@
 
 #include "pkm_types.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
-    uint8_t wlun;    /* well-known LUN / hw partition */
-    uint8_t region;  /* eMMC WP region id where applicable */
+    uint8_t wlun;    /**< Well-known LUN / hw partition */
+    uint8_t region;  /**< eMMC WP region ID where applicable */
 } pkm_wp_target_t;
 
-/* Step zero — REQUIRED before any set. */
+/**
+ * @brief Step zero — REQUIRED before any set operation.
+ * @param t Pointer to target structure
+ * @param supported Pointer to boolean output indicating capability support
+ * @return PKM_SUCCESS on successful probe execution
+ */
 pkm_result_t pkm_wp_probe(const pkm_wp_target_t *t, bool *supported);
 
-/* Apply the permanent lock. Never trusts its own write. */
+/**
+ * @brief Apply the permanent lock. Never trusts its own write.
+ * @param t Pointer to target structure
+ * @return PKM_SUCCESS only if verified via read-back confirmation
+ */
 pkm_result_t pkm_wp_set_permanent(const pkm_wp_target_t *t);
 
-/* The load-bearing read-back. No success without locked == true. */
+/**
+ * @brief The load-bearing read-back. No success without locked == true.
+ * @param t Pointer to target structure
+ * @param locked Pointer to boolean output indicating locked status
+ * @return PKM_SUCCESS on successful query execution
+ */
 pkm_result_t pkm_wp_query_permanent(const pkm_wp_target_t *t, bool *locked);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PKM_WRITE_PROTECT_H */
