@@ -9,18 +9,31 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 #include "pkm_gesture_fsm.h"
 
 static int failures = 0;
+
 #define CHECK(cond) do { \
-    if (!(cond)) { printf("FAIL %s:%d: %s\n", __FILE__, __LINE__, #cond); failures++; } \
+    if (!(cond)) { \
+        (void)fprintf(stderr, "FAIL %s:%d: %s\n", __FILE__, __LINE__, #cond); \
+        failures++; \
+    } \
 } while (0)
 
-/* One full cycle: press at t, hold hold_ms, release. */
+/**
+ * @brief Helper to execute a full press and release cycle.
+ * @param t Timestamp of the press event.
+ * @param hold_ms Duration of the hold in milliseconds.
+ * @return pkm_result_t Result code from the final FSM state transition.
+ */
 static pkm_result_t cycle(uint64_t t, uint64_t hold_ms)
 {
     pkm_result_t r = pkm_fsm_press(t);
-    if (r != PKM_OK) { return r; }
+    if (r != PKM_OK) { 
+        return r; 
+    }
     return pkm_fsm_release(t + hold_ms);
 }
 
@@ -79,6 +92,11 @@ int main(void)
     CHECK(cycle(10000, 1000)  == PKM_OK);     /* fresh attempt, cycle 1 */
     CHECK(!pkm_fsm_armed());
 
-    printf(failures ? "TESTS FAILED: %d\n" : "All tests passed.\n", failures);
-    return failures ? 1 : 0;
+    if (failures != 0) {
+        (void)fprintf(stderr, "TESTS FAILED: %d\n", failures);
+    } else {
+        (void)printf("All tests passed.\n");
+    }
+    
+    return (failures != 0) ? 1 : 0;
 }
