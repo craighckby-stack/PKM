@@ -1,9 +1,9 @@
 /**
  * @file pkm_types.h
- * @brief PKM shared types — Panic Key Mechanism
+ * @brief Panic Key Mechanism (PKM) shared core types, result codes, and structural contracts.
  *
- * PKM is "Panic Key Mechanism". No other expansion is valid in this repo.
- * Any other expansion appearing in generated code is a hallucination marker.
+ * @note PKM expands exclusively to "Panic Key Mechanism". Any other expansion
+ *       is a contract violation and acts as a hallucination marker.
  */
 
 #ifndef PKM_TYPES_H
@@ -13,41 +13,47 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+/**
+ * @brief Standardized result codes across all PKM modules.
+ *
+ * Enforces the post-mortem rules: stubs must return PKM_NOT_IMPLEMENTED,
+ * successful mutations demand read-back verification, and hardware capabilities
+ * are probed explicitly.
+ */
 typedef enum {
     PKM_OK = 0,
-    PKM_NOT_IMPLEMENTED,   /* stubs return this — it is honest */
-    PKM_FAILED,            /* attempted, verification did not pass */
-    PKM_UNSUPPORTED,       /* hardware lacks the capability (README §7) */
-    PKM_INVALID_STATE,     /* called outside the §3 contract */
-    PKM_HW_FAULT           /* hardware reported an error */
+    PKM_NOT_IMPLEMENTED,   /**< Explicit stub return code; never returns success falsely */
+    PKM_FAILED,            /**< Operation attempted, but read-back verification failed */
+    PKM_UNSUPPORTED,       /**< Hardware lacks capability; basis for graceful degradation */
+    PKM_INVALID_STATE,     /**< Operation invoked outside the strict execution contract */
+    PKM_HW_FAULT           /**< Underlying hardware bus or device reported an error */
 } pkm_result_t;
 
-/* README §3 phase order. The orchestrator enforces this mechanically. */
+/**
+ * @brief Ordered execution phases of the Panic Key Mechanism.
+ *
+ * Enforces the strict mechanical progression defined in README §3.
+ */
 typedef enum {
     PKM_PHASE_IDLE = 0,
-    PKM_PHASE_KEYS,        /* 1. zeroize keystore + derivation material   */
-    PKM_PHASE_PURGE,       /* 2. UFS Secure Purge / eMMC Sanitize         */
-    PKM_PHASE_BOOT,        /* 3. corrupt all redundant boot targets       */
-    PKM_PHASE_WP,          /* 4. enable + VERIFY permanent write protect  */
-    PKM_PHASE_HALT         /* 5. zeroize volatile RAM, power off          */
+    PKM_PHASE_KEYS,        /**< 1. Zeroize keystore, secure storage, and derivation material */
+    PKM_PHASE_PURGE,       /**< 2. Execute hardware-level UFS Secure Purge / eMMC Sanitize */
+    PKM_PHASE_BOOT,        /**< 3. Corrupt all redundant boot targets from hardware maps */
+    PKM_PHASE_WP,          /**< 4. Enable and verify permanent write protection */
+    PKM_PHASE_HALT         /**< 5. Scrub volatile memory and enforce hardware power-off */
 } pkm_phase_t;
 
-/*
- * POWER-CUT SAFETY (the reason the order exists — README §3):
- *   Interrupt before KEYS completes -> data intact.   Acceptable.
- *   Interrupt after  KEYS completes -> data dead.     Acceptable.
- *   There is no third state. This is the entire design.
+/**
+ * @brief Storage target descriptor populated exclusively from hardware definitions.
+ *
+ * Conforms strictly to requirements ensuring full extents are targeted without
+ * hardcoded assumptions or partial coverages.
  */
-
-/* Per-device storage target. Populated ONLY from docs/HARDWARE.md.
- * Hardcoding LUNs, offsets, or partition names anywhere else is a
- * contract violation. */
 typedef struct {
-    const char *label;    /* e.g. "bLUN0", "bLUN1", "xbl", "xblbak",
-                             "abl", "boot_a", "boot_b" */
-    uint8_t     wlun;     /* UFS well-known LUN id / eMMC hw partition */
-    uint64_t    offset;   /* bytes, from the device partition map */
-    uint64_t    length;   /* FULL extent — partial coverage is a coin flip */
+    const char *label;    /**< Descriptive target identifier (e.g., "bLUN0", "xbl", "boot_a") */
+    uint8_t     wlun;     /**< UFS well-known LUN identifier or eMMC hardware partition */
+    uint64_t    offset;   /**< Byte offset derived directly from the device partition map */
+    uint64_t    length;   /**< Full extent length in bytes; prevents partial vulnerability windows */
 } pkm_storage_target_t;
 
 #endif /* PKM_TYPES_H */
