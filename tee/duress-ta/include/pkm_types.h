@@ -14,13 +14,28 @@
 #include <stddef.h>
 
 /**
+ * @brief Compiler attributes for memory alignment, packing, and optimization.
+ */
+#if defined(__GNUC__) || defined(__clang__)
+#define PKM_PACKED            __attribute__((packed))
+#define PKM_ALIGNED(n)        __attribute__((aligned(n)))
+#define PKM_NONNULL(...)      __attribute__((nonnull(__VA_ARGS__)))
+#define PKM_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+#else
+#define PKM_PACKED
+#define PKM_ALIGNED(n)
+#define PKM_NONNULL(...)
+#define PKM_WARN_UNUSED_RESULT
+#endif
+
+/**
  * @brief Standardized result codes across all PKM modules.
  *
  * Enforces the post-mortem rules: stubs must return PKM_NOT_IMPLEMENTED,
  * successful mutations demand read-back verification, and hardware capabilities
  * are probed explicitly.
  */
-typedef enum {
+typedef enum PKM_WARN_UNUSED_RESULT {
     PKM_OK = 0,
     PKM_NOT_IMPLEMENTED,   /**< Explicit stub return code; never returns success falsely */
     PKM_FAILED,            /**< Operation attempted, but read-back verification failed */
@@ -47,13 +62,15 @@ typedef enum {
  * @brief Storage target descriptor populated exclusively from hardware definitions.
  *
  * Conforms strictly to requirements ensuring full extents are targeted without
- * hardcoded assumptions or partial coverages.
+ * hardcoded assumptions or partial coverages. Optimized for cache alignment
+ * and explicit memory safety.
  */
-typedef struct {
+typedef struct PKM_ALIGNED(8) {
     const char *label;    /**< Descriptive target identifier (e.g., "bLUN0", "xbl", "boot_a") */
-    uint8_t     wlun;     /**< UFS well-known LUN identifier or eMMC hardware partition */
     uint64_t    offset;   /**< Byte offset derived directly from the device partition map */
     uint64_t    length;   /**< Full extent length in bytes; prevents partial vulnerability windows */
+    uint8_t     wlun;     /**< UFS well-known LUN identifier or eMMC hardware partition */
+    uint8_t     reserved[7]; /**< Explicit padding to maintain strict 64-bit alignment and prevent information leaks */
 } pkm_storage_target_t;
 
 #endif /* PKM_TYPES_H */
