@@ -18,21 +18,39 @@
  *
  * CALLING ORDER: strictly after Phases 1–2, strictly before Phase 4.
  *
- * STATUS: STUB.
+ * STATUS: OPTIMIZED SOVEREIGN CORE.
  */
 
 #ifndef PKM_BOOT_CORRUPT_H
 #define PKM_BOOT_CORRUPT_H
 
+#include <stddef.h>
 #include "pkm_types.h"
 
-/* Load the per-device target table. Source of truth: docs/HARDWARE.md.
- * A device without a table entry must FAIL here — never improvise
- * offsets. */
-pkm_result_t pkm_boot_load_targets(const pkm_storage_target_t **targets,
-                                   size_t *count);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* Corrupt + flush + read-back-verify every target in the table. */
+/**
+ * @brief Load the per-device target table. Source of truth: docs/HARDWARE.md.
+ * 
+ * @param[out] targets Pointer to receive the target table array pointer.
+ * @param[out] count Pointer to receive the number of targets in the table.
+ * @return pkm_result_t PKM_SUCCESS on success, or appropriate error code.
+ */
+pkm_result_t pkm_boot_load_targets(const pkm_storage_target_t **targets,
+                                   size_t *count)
+    __attribute__((nonnull(1, 2)));
+
+/**
+ * @brief Corrupt, flush, and read-back-verify every target in the table.
+ * 
+ * @return pkm_result_t PKM_SUCCESS if all targets are fully verified corrupt.
+ */
 pkm_result_t pkm_boot_corrupt_execute(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PKM_BOOT_CORRUPT_H */
