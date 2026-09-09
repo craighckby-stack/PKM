@@ -212,3 +212,14 @@ compilation terminated.
 compilation terminated.
 ```
 **CONSTRAINT (Model Generalization):** Never repeat code patterns that produce this compiler/linter error on tee/duress-ta/src/pkm_gesture_fsm.c.
+
+### ❌ [2026-09-09] tee/duress-ta/host-tests/test_fsm.c `source: mutation-cycle`
+**Symptom:** Active Linter / Compiler Gate Rejection on LLM Output (Option B)
+**EVIDENCE (Machine-Copied Fact):**
+```
+<source>:13:10: fatal error: ../include/pkm_gesture_fsm.h: No such file or directory
+   13 | #include "../include/pkm_gesture_fsm.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+```
+**CONSTRAINT (Model Generalization):** Never repeat code patterns that produce this compiler/linter error on tee/duress-ta/host-tests/test_fsm.c.
