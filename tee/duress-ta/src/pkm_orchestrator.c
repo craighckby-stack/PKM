@@ -39,7 +39,7 @@ typedef enum {
     SEQ_FAILED
 } seq_state_t;
 
-static struct {
+static volatile struct {
     seq_state_t state;
     pkm_phase_t last_phase;
     bool        keys_done;
@@ -66,7 +66,7 @@ static pkm_result_t phase_keys(void)
     return PKM_OK;
 }
 
-static pkm_result_t phase_purge(bool *degraded)
+static pkm_result_t phase_purge(bool *const degraded)
 {
     bool supported = false;
     pkm_result_t r = pkm_purge_probe(&supported);
@@ -85,7 +85,7 @@ static pkm_result_t phase_purge(bool *degraded)
     return PKM_OK;
 }
 
-static pkm_result_t phase_boot(bool *degraded)
+static pkm_result_t phase_boot(bool *const degraded)
 {
     const pkm_storage_target_t *targets = NULL;
     size_t count = 0;
@@ -104,7 +104,7 @@ static pkm_result_t phase_boot(bool *degraded)
     return PKM_OK;
 }
 
-static pkm_result_t phase_wp(bool *degraded)
+static pkm_result_t phase_wp(bool *const degraded)
 {
     const pkm_wp_target_t t = { .wlun = 0, .region = 0 }; /* from table —
                                                              per-device */
@@ -157,7 +157,7 @@ pkm_result_t pkm_sequence_run(void)
     /* PHASE 1 — KEYS. Mandatory. Any failure halts EVERYTHING. */
     g_seq.last_phase = PKM_PHASE_KEYS;
     {
-        pkm_result_t r = phase_keys();
+        const pkm_result_t r = phase_keys();
         if (r != PKM_OK) {
             g_seq.state = SEQ_FAILED;
             return r;      /* keys intact or half-done -> do NOT brick.
@@ -185,5 +185,5 @@ pkm_result_t pkm_sequence_run(void)
     g_seq.state      = degraded ? SEQ_DEGRADED : SEQ_COMPLETE;
     phase_halt();
 
-    return (g_seq.state == SEQ_DEGRADED) ? PKM_OK : PKM_OK;
+    return PKM_OK;
 }
