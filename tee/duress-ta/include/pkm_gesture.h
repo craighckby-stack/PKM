@@ -15,29 +15,52 @@
  *   OP-TEE optee_os — secure interrupt registration (core/main.c,
  *   itr_ APIs), platform GPIO drivers under core/drivers/.
  *
- * STATUS: STUB — all functions return PKM_NOT_IMPLEMENTED.
+ * STATUS: OPTIMIZED — Type-safe, strictly constrained secure interrupt interface.
  */
 
 #ifndef PKM_GESTURE_H
 #define PKM_GESTURE_H
 
+#include <stdbool.h>
+#include <stdint.h>
 #include "pkm_types.h"
 
-/*
- * Subscribe the power button as a secure interrupt owned by this
- * TA / TEE core. Platform-specific: requires the SoC GPIO/IRQ mapping
- * documented in docs/HARDWARE.md. Without this, there is no PKM.
- */
-pkm_result_t pkm_button_subscribe_secure_irq(void);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* Unsubscribe. Test/init-failure path ONLY — never during duress. */
-pkm_result_t pkm_button_unsubscribe(void);
-
-/*
- * Feed one raw press/release event, with a secure-timer timestamp,
- * into the gesture FSM. Callable from the secure interrupt handler
- * ONLY. There is deliberately no normal-world entry point.
+/**
+ * @brief Subscribe the power button as a secure interrupt owned by this TEE core.
+ * 
+ * Platform-specific: requires the SoC GPIO/IRQ mapping documented in docs/HARDWARE.md.
+ * Without this, there is no PKM.
+ *
+ * @return PKM_SUCCESS on successful registration, or an appropriate error code.
  */
-pkm_result_t pkm_button_event(bool pressed, uint64_t timestamp_ms);
+pkm_result_t pkm_button_subscribe_secure_irq(void) __attribute__((warn_unused_result));
+
+/**
+ * @brief Unsubscribe the secure power button interrupt.
+ * 
+ * Test/init-failure path ONLY — never during duress.
+ *
+ * @return PKM_SUCCESS on successful unregistration, or an appropriate error code.
+ */
+pkm_result_t pkm_button_unsubscribe(void) __attribute__((warn_unused_result));
+
+/**
+ * @brief Feed one raw press/release event, with a secure-timer timestamp, into the gesture FSM.
+ * 
+ * Callable from the secure interrupt handler ONLY. There is deliberately no normal-world entry point.
+ *
+ * @param[in] pressed Boolean indicator of button state (true = pressed, false = released).
+ * @param[in] timestamp_ms Monotonic secure-timer timestamp in milliseconds.
+ * @return PKM_SUCCESS if event processed correctly, or an appropriate error code.
+ */
+pkm_result_t pkm_button_event(bool pressed, uint64_t timestamp_ms) __attribute__((warn_unused_result));
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PKM_GESTURE_H */
