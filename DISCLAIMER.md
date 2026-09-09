@@ -1,3 +1,5 @@
+@@@SUMMARY Enhanced prose flow, standardized markdown headers, and clarified legal/compliance constraints for the Panic Key Mechanism (PKM) disclaimer documentation.
+@@@START
 # Legal and Usage Disclaimer
 
 > **NOTICE:** Read this document carefully before utilizing, deploying, or building upon the concepts, specifications, or software contained within this repository.
@@ -6,9 +8,9 @@
 
 ## 1. Purpose
 
-The Panic Key Mechanism (PKM) is a defensive security concept engineered specifically for **duress protection**. It empowers the lawful owner of a device—such as an investigative journalist safeguarding confidential sources, a human rights activist, a dissident, or any high-risk individual facing imminent coercion or forced physical surrender—to irreversibly purge their sensitive data rather than yield it to adversaries.
+The Panic Key Mechanism (PKM) is a defensive security architecture engineered specifically for **duress protection**. It empowers the lawful owner of a device—such as an investigative journalist safeguarding confidential sources, a human rights activist, a dissident, or any high-risk individual facing imminent coercion or forced physical surrender—to irreversibly purge sensitive data rather than yield it to adversaries.
 
-PKM operates strictly within the boundaries of the user's local hardware environment. It does not interface with, modify, or transmit data across external systems, third-party services, or networks.
+PKM operates strictly within the boundaries of the user's local hardware environment. It does not interface with, modify, or transmit data across external systems, third-party services, or public networks.
 
 ---
 
@@ -18,7 +20,7 @@ PKM operates strictly within the boundaries of the user's local hardware environ
 
 ---
 
-## 3. User Responsibility & Compliance
+## 3. User Responsibility and Compliance
 
 End users assume absolute responsibility for their utilization of this project and must ensure rigorous compliance with all applicable municipal, national, and international laws. Specifically, users acknowledge the following legal considerations:
 
@@ -43,3 +45,4 @@ The publication, distribution, and maintenance of this repository do not constit
 ## 6. Project Status and Target Audience
 
 This repository provides an open-source technical specification and reference architecture. It is intended strictly for security researchers, platform engineers, and at-risk individuals evaluating advanced duress-protection systems. This project is **not** a consumer-grade application and is not marketed or distributed as such.
+@@@
