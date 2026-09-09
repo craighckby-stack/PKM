@@ -13,6 +13,20 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+/* Compiler attributes for memory efficiency, strict alignment, and optimization */
+#if defined(__GNUC__) || defined(__clang__)
+#define PKM_PACKED          __attribute__((__packed__))
+#define PKM_WARN_UNUSED     __attribute__((__warn_unused_result__))
+#define PKM_CONST           __attribute__((__const__))
+#else
+#define PKM_PACKED
+#define PKM_WARN_UNUSED
+#define PKM_CONST
+#endif
+
+/**
+ * @brief PKM result status codes for robust, deterministic error handling.
+ */
 typedef enum {
     PKM_OK = 0,
     PKM_NOT_IMPLEMENTED,   /* stubs return this — it is honest */
@@ -42,12 +56,17 @@ typedef enum {
 /* Per-device storage target. Populated ONLY from docs/HARDWARE.md.
  * Hardcoding LUNs, offsets, or partition names anywhere else is a
  * contract violation. */
-typedef struct {
+typedef struct PKM_PACKED {
     const char *label;    /* e.g. "bLUN0", "bLUN1", "xbl", "xblbak",
                              "abl", "boot_a", "boot_b" */
-    uint8_t     wlun;     /* UFS well-known LUN id / eMMC hw partition */
     uint64_t    offset;   /* bytes, from the device partition map */
     uint64_t    length;   /* FULL extent — partial coverage is a coin flip */
+    uint32_t    wlun;     /* UFS well-known LUN id / eMMC hw partition */
+    uint32_t    reserved; /* Reserved for explicit alignment and future flags */
 } pkm_storage_target_t;
+
+#undef PKM_PACKED
+#undef PKM_WARN_UNUSED
+#undef PKM_CONST
 
 #endif /* PKM_TYPES_H */
