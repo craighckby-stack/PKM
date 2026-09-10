@@ -35,19 +35,19 @@ extern "C" {
  *        all users/profiles, plus the master wraps above them.
  * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
  */
-pkm_result_t pkm_keys_zeroize_fbe(void) __attribute__((warn_unused_result));
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_fbe(void);
 
 /**
  * @brief Delete hardware keystore / keymaster root + attestation material.
  * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
  */
-pkm_result_t pkm_keys_zeroize_keymaster(void) __attribute__((warn_unused_result));
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_keymaster(void);
 
 /**
  * @brief Delete key derivation material (the wrapper hierarchy).
  * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
  */
-pkm_result_t pkm_keys_zeroize_kdf(void) __attribute__((warn_unused_result));
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_kdf(void);
 
 /**
  * @brief Overwrite TEE volatile memory holding unwrapped key copies:
@@ -55,7 +55,7 @@ pkm_result_t pkm_keys_zeroize_kdf(void) __attribute__((warn_unused_result));
  *        last writes before power-off.
  * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
  */
-pkm_result_t pkm_keys_zeroize_volatile(void) __attribute__((warn_unused_result));
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_volatile(void);
 
 #ifdef __cplusplus
 }
