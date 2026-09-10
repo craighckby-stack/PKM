@@ -26,19 +26,39 @@
 
 #include "pkm_types.h"
 
-/* Delete all FBE/file-content key blobs: RPMB + TEE Secure Storage,
- * all users/profiles, plus the master wraps above them. */
-pkm_result_t pkm_keys_zeroize_fbe(void);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/* Delete hardware keystore / keymaster root + attestation material. */
-pkm_result_t pkm_keys_zeroize_keymaster(void);
+/**
+ * @brief Delete all FBE/file-content key blobs: RPMB + TEE Secure Storage,
+ *        all users/profiles, plus the master wraps above them.
+ * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
+ */
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_fbe(void);
 
-/* Delete key derivation material (the wrapper hierarchy). */
-pkm_result_t pkm_keys_zeroize_kdf(void);
+/**
+ * @brief Delete hardware keystore / keymaster root + attestation material.
+ * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
+ */
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_keymaster(void);
 
-/* Overwrite TEE volatile memory holding unwrapped key copies:
- * TA heap, crypto-primitive caches, scratch. Runs in Phase 5 too —
- * last writes before power-off. */
-pkm_result_t pkm_keys_zeroize_volatile(void);
+/**
+ * @brief Delete key derivation material (the wrapper hierarchy).
+ * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
+ */
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_kdf(void);
+
+/**
+ * @brief Overwrite TEE volatile memory holding unwrapped key copies:
+ *        TA heap, crypto-primitive caches, scratch. Runs in Phase 5 too —
+ *        last writes before power-off.
+ * @return pkm_result_t PKM_SUCCESS on absolute completion, error code otherwise.
+ */
+[[nodiscard]] pkm_result_t pkm_keys_zeroize_volatile(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PKM_KEYS_H */
